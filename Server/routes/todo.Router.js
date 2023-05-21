@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 });
 
 // from our POST function
+// updated this to have "complete" in our values so that the database can get the call for the boolean 
 
 router.post('/', (req, res) => {
     let newTask = req.body;
@@ -42,7 +43,7 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         })
 });
-
+// This is the PUT for the router that is  called from the client
 router.put('/:id', (req, res) => {
     let idToUpdate = req.params.id;
     
@@ -59,6 +60,7 @@ router.put('/:id', (req, res) => {
     })
   })
 
+  // this is the delete router that is called from the client
   router.delete('/:id', (req, res) => {
     let taskToDelete = req.params.id;
     let queryText = 'DELETE FROM "Todo_List" WHERE "id"=$1';
