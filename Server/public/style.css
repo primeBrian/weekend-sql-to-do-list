@@ -7,8 +7,18 @@ h1 {
     border: 2px solid black;
 }
 
+h2 {
+    color:darkblue;
+    font-family: monospace;
+    border-width: 150%;
+}
+
+h4 {
+    color: navajowhite;
+}
+
 body {
-    background-color: #11781a;
+    background: linear-gradient(rgb(200, 40, 40), rgb(221, 221, 52), rgb(26, 26, 166), rgb(200, 40, 40), rgb(221, 221, 52), rgb(70, 70, 224));
 }
 
 table {
@@ -22,9 +32,9 @@ th, td {
 }
   
 thead tr {
-    border: 1px solid black;
-  background-color: #2bde3a, rgb(28, 28, 221) rgba(131, 26, 26, 0.935);
-  }
+    border: 2px solid black;
+    border-style: dotted 2px solid;
+}
 
  section {
     border: 2px solid #641723;
@@ -32,3 +42,4 @@ thead tr {
     margin-bottom: 2rem;
     padding: 1rem;
 } 
+
