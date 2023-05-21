@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     let queryText = 'SELECT * FROM "Todo_List";';
     pool.query(queryText)
     .then(result => {
+        console.log('in our GET router', result.rows);
         res.send(result.rows);
     })
     .catch(error => {
@@ -21,15 +22,15 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     let newTask = req.body;
-    console.log('req.body:', req.body);
+    console.log('in our POST router', req.body);
 // parameterized query:
     let queryText = `
-    INSERT INTO "Todo_List" ("task", "location")
-    VALUES ($1, $2);
+    INSERT INTO "Todo_List" ("task", "location", "complete")
+    VALUES ($1, $2, $3);
     `;
     
 // these values are substituted for $1, $2, $3
-    let values = [newTask.task, newTask.location];
+    let values = [newTask.task, newTask.location, newTask.complete];
 
 // pass queryText and array of values
     pool.query(queryText, values)

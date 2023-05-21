@@ -3,9 +3,9 @@ $(document).ready(onReady);
 // my event click handlers
 function onReady() {
     console.log('JQ loaded');
-    $('#submit-task').on('click', submitBtn); 
-    $('#viewTask').on('click', '#complete-btn', updateTask);// call in the put function
-    $('#viewTask').on('click', '#delete-btn', deleteButton);// call in the delete function
+    $('.submit-task').on('click', submitBtn); 
+    $('#viewTask').on('click', '.complete-btn', updateTask);
+    $('#viewTask').on('click', '.delete-btn', deleteButton);
         getTask();
 }
 
@@ -21,53 +21,35 @@ function getTask(){
       url: '/todo'
     }).then(function(response) {
       console.log('GET, /todo', response);
-      for (let i= 0; i , response.length; i++) {
-        if (response[i].complete === true){
-          console.log('complete task: ', response[i].complete)
-        $('#viewTask').append(`
-        <tr data-id=${response[i].id}>
-         <td>${response[i].task}</td>
-         <td>${response[i].location}</td>
-         <td>💚</td>
-         <td><button id="delete-btn">Delete</button></td>
-        </tr>
-  
-        `);} 
-        else {
-          $('#viewTask').append(`
-        <tr data-id=${response[i].id}>
-         <td>${response[i].task}</td>
-         <td>${response[i].location}</td>
-         <td><button id="complete-btn"><Complete</button></td>
-         <td><button id="delete-btn">Delete</button></td>
-        </tr>
-  
-        `);} 
-      }
-    }).catch(error => {
-      console.log('Error', error);
-    })
+      appendToDom(response);
+      
+        
+      })
+    
 }
 // end of getTask function
 
-// POST call submitBtn
+// POST call  for submitBtn function
 
 function submitBtn() {
   console.log('submit button is clicked');
   let submitTask = {
     task: $('#task').val(),
     location: $('#location').val(),
-    
+    complete: false
   };
   $.ajax({
       type: 'POST',
       url: '/todo',
       data: submitTask
   }).then(function(response) {
+    console.log('submit function works');
     $('#task').val(''),
     $('#location').val(''),
       getTask();
-  });
+  }).catch(error => {
+    console.log('POST function is not working', error);
+  })
 };
 
 // The PUT function to update task
@@ -102,4 +84,24 @@ function deleteButton() {
   }).catch(function (error) {
       console.log('Error with delete function: ', error);
   })
+}
+
+// put in a appendToDom function that loop through the objects for table rows
+// Also to have a complete and delete button appear on the DOM
+function appendToDom(array) {
+  $('#viewTask').empty();
+  for (let obj of array ) {
+    $('#viewTask').append(`
+      <tr id="${obj.id}" data-id="${obj.id}">
+      <td>${obj.task}</td>
+      <td>${obj.location}</td>
+      <td><button class="complete-btn">Complete</button></td>
+      <td><button class="delete-btn">Delete</button></td>
+      </tr>
+    `)
+    if (obj.complete) {
+      $(`#${obj.id}`).css('background-color', 'green')
+    }
+  } 
+  
 }
