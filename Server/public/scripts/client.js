@@ -21,13 +21,13 @@ function getTask(){
       url: '/todo'
     }).then(function(response) {
       console.log('GET, /todo', response);
-      appendToDom(response);
-   // .catch(function (error){
-     // console.error(error);
-     // alet('something went wrong')
-   //});   
+      appendToDom(response);})
+      .catch(function (error){
+     console.error(error);
+     alert('something went wrong')
+   });   
         
-      })
+     
     
 }
 // end of getTask function
