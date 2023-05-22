@@ -22,7 +22,10 @@ function getTask(){
     }).then(function(response) {
       console.log('GET, /todo', response);
       appendToDom(response);
-      
+   // .catch(function (error){
+     // console.error(error);
+     // alet('something went wrong')
+   //});   
         
       })
     
